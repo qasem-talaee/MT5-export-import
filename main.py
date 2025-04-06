@@ -18,7 +18,7 @@ def import_orders():
         filetypes=(("CSV files", "*.csv"), ("All files", "*.*"))
     )
     if file_path:
-        log_message(f"File selected: {file_path}\n\n")
+        log_message(f"File selected: {file_path}\n")
         result = mt5Obj.Import(file_path)
         for item in result:
             log_message(item)
@@ -44,6 +44,11 @@ def log_message(message):
     log_text.config(state=tk.DISABLED)
     log_text.yview(tk.END)
 
+def clear_log():
+    log_text.config(state=tk.NORMAL)
+    log_text.delete(1.0, tk.END)
+    log_text.config(state=tk.DISABLED)
+
 root = tk.Tk()
 root.title("MT5 Export & Import")
 
@@ -67,6 +72,9 @@ message_button.pack(side=tk.LEFT, padx=5)
 
 file_button = tk.Button(button_frame, text="Import Orders", command=import_orders)
 file_button.pack(side=tk.LEFT, padx=5)
+
+clear_button = tk.Button(button_frame, text="Clear Log", command=clear_log)
+clear_button.pack(side=tk.LEFT, padx=5)
 
 about_button = tk.Button(button_frame, text="About", command=show_about)
 about_button.pack(side=tk.LEFT, padx=5)
